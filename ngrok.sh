@@ -74,11 +74,8 @@ uninstall_go(){
 install_ngrok(){
 	uninstall_ngrok
 	cd /usr/local
-	if [ ! -f /usr/local/ngrok.zip ];then
-		cd /usr/local/
-		wget http://www.sunnyos.com/ngrok.zip
-	fi
-	unzip ngrok.zip
+	git clone https://github.com/inconshreveable/ngrok.git
+
 	export GOPATH=/usr/local/ngrok/
 	export NGROK_DOMAIN=$DOMAIN
 	cd ngrok
