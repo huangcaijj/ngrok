@@ -82,7 +82,7 @@ install_ngrok(){
 	uninstall_ngrok
 	cd /usr/local
 	git clone https://github.com/inconshreveable/ngrok.git
-	export GOPATH=/usr/local/ngrok/
+	export GOPATH=/usr/local/src/ngrok/
 	export NGROK_DOMAIN=$DOMAIN
 	cd ngrok
 	openssl genrsa -out rootCA.key 2048
