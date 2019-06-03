@@ -55,12 +55,12 @@ install_go(){
 	if [ $(getconf WORD_BIT) = '32' ] && [ $(getconf LONG_BIT) = '64' ];then
 		# 判断文件是否已经存在
 		if [ ! -f $SELFPATH/go1.7.2.linux-amd64.tar.gz ];then
-			wget https://dl.google.com/go/go1.7.2.linux-amd64.tar.gz --no-check-certificate
+			wget https://dl.google.com/go/go1.4.2.linux-amd64.tar.gz --no-check-certificate
 		fi
 	    tar zxvf go1.7.2.linux-amd64.tar.gz
 	else
 		if [ ! -f $SELFPATH/go1.7.2.linux-386.tar.gz ];then
-			wget https://dl.google.com/go/go1.7.2.linux-386.tar.gzz --no-check-certificate
+			wget https://dl.google.com/go/go1.4.2.linux-386.tar.gzz --no-check-certificate
 		fi
 	    tar zxvf go1.7.2.linux-386.tar.gz
 	fi
@@ -96,7 +96,7 @@ install_ngrok(){
 	cd /usr/local/go/src
 	GOOS=$GOOS GOARCH=$GOARCH ./make.bash
 	cd /usr/local/ngrok
-	GOOS=$GOOS GOARCH=$GOARCH make release-server
+	make release-server
 	/usr/local/ngrok/bin/ngrokd -domain=$NGROK_DOMAIN -httpAddr=":80"
 }
 
