@@ -80,7 +80,7 @@ uninstall_go(){
 # 安装ngrok
 install_ngrok(){
 	uninstall_ngrok
-	cd /usr/local/
+	cd /usr/local
 	git clone https://github.com/inconshreveable/ngrok.git
 	export GOPATH=/usr/local/ngrok/
 	export NGROK_DOMAIN=$DOMAIN
@@ -93,8 +93,6 @@ install_ngrok(){
 	cp rootCA.pem assets/client/tls/ngrokroot.crt
 	cp server.crt assets/server/tls/snakeoil.crt
 	cp server.key assets/server/tls/snakeoil.key
-	# 替换下载源地址
-	sed -i 's#code.google.com/p/log4go#github.com/keepeye/log4go#' /usr/local/ngrok/src/ngrok/log/logger.go
 	cd /usr/local/go/src
 	GOOS=$GOOS GOARCH=$GOARCH ./make.bash
 	cd /usr/local/ngrok
