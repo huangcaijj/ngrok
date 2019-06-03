@@ -1,5 +1,12 @@
 #!/bin/bash
 # -*- coding: UTF-8 -*-
+#############################################
+#作者网名：Sunny								#
+#作者博客：www.sunnyos.com                    #
+#作者QQ：327388905                           #
+#作者QQ群:57914191                           #
+#作者微博：http://weibo.com/2442303192        #
+#############################################
 # 获取当前脚本执行路径
 SELFPATH=$(cd "$(dirname "$0")"; pwd)
 GOOS=`go env | grep GOOS | awk -F\" '{print $2}'`
@@ -47,15 +54,15 @@ install_go(){
 	# 判断操作系统位数下载不同的安装包
 	if [ $(getconf WORD_BIT) = '32' ] && [ $(getconf LONG_BIT) = '64' ];then
 		# 判断文件是否已经存在
-		if [ ! -f $SELFPATH/go1.12.5.linux-amd64.tar.gz ];then
-			wget https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz --no-check-certificate
+		if [ ! -f $SELFPATH/go1.7.6.linux-amd64.tar.gz ];then
+			wget https://dl.google.com/go/go1.7.6.linux-amd64.tar.gz --no-check-certificate
 		fi
-	    tar zxvf go1.12.5.linux-amd64.tar.gz
+	    tar zxvf go1.7.6.linux-amd64.tar.gz
 	else
-		if [ ! -f $SELFPATH/go1.12.5.linux-386.tar.gz ];then
-			wget https://dl.google.com/go/go1.12.5.linux-386.tar.gz --no-check-certificate
+		if [ ! -f $SELFPATH/go1.7.6.linux-386.tar.gz ];then
+			wget https://dl.google.com/go/go1.7.6.linux-386.tar.gz --no-check-certificate
 		fi
-	    tar zxvf go1.12.5.linux-386.tar.gz
+	    tar zxvf go1.7.6.linux-386.tar.gz
 	fi
 	mv go /usr/local/
 	ln -s /usr/local/go/bin/* /usr/bin/
@@ -73,9 +80,8 @@ uninstall_go(){
 # 安装ngrok
 install_ngrok(){
 	uninstall_ngrok
-	cd /usr/local
+	cd /usr/local/
 	git clone https://github.com/inconshreveable/ngrok.git
-
 	export GOPATH=/usr/local/ngrok/
 	export NGROK_DOMAIN=$DOMAIN
 	cd ngrok
@@ -87,6 +93,8 @@ install_ngrok(){
 	cp rootCA.pem assets/client/tls/ngrokroot.crt
 	cp server.crt assets/server/tls/snakeoil.crt
 	cp server.key assets/server/tls/snakeoil.key
+	# 替换下载源地址
+	sed -i 's#code.google.com/p/log4go#github.com/keepeye/log4go#' /usr/local/ngrok/src/ngrok/log/logger.go
 	cd /usr/local/go/src
 	GOOS=$GOOS GOARCH=$GOARCH ./make.bash
 	cd /usr/local/ngrok
@@ -147,6 +155,13 @@ client(){
 
 
 echo "请输入下面数字进行选择"
+echo "#############################################"
+echo "#作者网名：Sunny"
+echo "#作者博客：www.sunnyos.com"
+echo "#作者QQ：327388905"
+echo "#作者QQ群:57914191"
+echo "#作者微博：http://weibo.com/2442303192"
+echo "#############################################"
 echo "------------------------"
 echo "1、全新安装"
 echo "2、安装依赖"
